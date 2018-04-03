@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" type="text/css" href="../css/companyUserCSS.css">
+  <link rel="stylesheet" type="text/css" href="../css/popUpForms.css">
+  <title> Home </title>
+<body>
+	<div id="fixednavi">
+	  <ul id="navi">
+	    <li> <a onClick="change1()" id="active" class="non-dropdown-content"> Home </a> </li>
+      <li> <a href="/companyviewjobseekerprofile"  class="non-dropdown-content non-active"> Jobs </a> </li>
+	    <li> <a href="/companyreportgenerator"  class="non-dropdown-content non-active"> Reports generator </a> </li>
+      <li> <input class="searchbar" placeholder="Search" type="text"/> </li>
+      <button class="search-button" >Go</button>
+      <li class="logout"> <a onClick="change3()"  class="non-dropdown-content non-active"> Logout </a> </li>
+
+	  </ul>
+	</div>
+
+  <div class="nav-body-container">
+    <div class="box">
+        <p style="margin-top: -25px; margin-left: 35px; margin-bottom: -30px" id="content"> </p>
+    </div>
+
+    <div class="side">
+      <button class="side-button" onclick="document.getElementById('id01').style.display='block'">Edit profile</button>
+      <button class="side-button" onclick="document.getElementById('id05').style.display='block'" type="submit">Delete profile</button>
+      <button class="side-button" id="submit_view" type="submit">Refresh profile</button>
+    </div>
+
+    <div>
+      <div class="forms">
+        <input class="search-input" style="margin-left: 10px; margin-top: 40px; width: 400px" id="jid" type="text" placeholder="Search job">
+        <button class="search-button" id ="submit_id" onclick="document.getElementById('id02').style.display='block'">Go</button>
+      </div>
+
+      <div>
+        <button class="button" style="margin-left: 10px; margin-top: -10px" onclick="document.getElementById('id03').style.display='block'">Add job post</button>
+      </div>
+
+      <div>
+        <button class="button" style="margin-left: 10px;" onclick="document.getElementById('id04').style.display='block'">Edit job post</button>
+      </div>
+
+      <div>
+        <div class="forms">
+          <input class="search-input" style="margin-left: 10px; margin-top: 40px; width: 400px" id="djid" type="text" placeholder="Delete job">
+          <button class="search-button" style="width:100px" onclick="document.getElementById('id06').style.display='block'">Delete Job</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- edit profile -->
+    <div id="id01" class="modal">
+
+      <form class="modal-content animate">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        </div>
+
+        <div class="popup-wrapper">
+          <div class="popup-container">
+
+            <h2 style="margin-left: 50px; color: black; margin-top: 30px"> Edit profile </h2>
+
+            <div class="forms">
+              <label class="label"><b>Name</b></label>
+              <input class="input-form" type="text" id="name" placeholder="Enter street">
+            </div>
+
+            <div class="forms">
+              <label class="label"><b>Email</b></label>
+              <input class="input-form" type="text" id="email" placeholder="Enter street">
+            </div>
+
+            <div class="forms">
+              <label class="label"><b>Street</b></label>
+              <input class="input-form" type="text" id="street" placeholder="Enter street">
+            </div>
+
+            <div class="forms">
+              <label class="label"><b>City</b></label>
+              <input class="input-form" type="text" id="city" placeholder="Enter city">
+            </div>
+
+            <div class="forms">
+              <label class="label"><b>Province</b></label>
+              <input class="input-form" type="text" id="province" placeholder="Enter province">
+            </div>
+
+            <button class="popup-buttons" id="submit_edit" style="float: left; margin-left: 50px" type="submit">Save changes</button>
+            <button type="button" style="float: right; margin-right: 50px" onclick="document.getElementById('id01').style.display='none'" class="popup-buttons cancelbtn">Cancel</button>
+          </div>
+        </div>
+
+        <div class="footer-container" style="background-color:#f1f1f1">
+        </div>
+      </form>
+    </div>
+
+    <!-- job find -->
+    <div id="id02" class="modal">
+      <form class="modal-content animate">
+        <div class="imgcontainer">
+        </div>
+
+        <div class="popup-wrapper">
+          <div class="popup-container">
+            <h3 style="color: black"> Job found: </h3>
+            <p style="margin-top: -100px; color: black" id="content_job">
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-container" style="background-color:#f1f1f1">
+        </div>
+      </form>
+    </div>
+
+    <!-- post job -->
+		<div id="id03" class="modal">
+
+			<form class="modal-content animate">
+				<div class="popup-wrapper">
+					<div class="popup-container">
+						<h2 style="margin-left: 50px; color: black; margin-top: 30px"> Add new job post</h2>
+
+						<div class="forms">
+							<label class="label"><b>Working hours</b></label>
+							<input class="input-form" type="text" placeholder="Enter working hours"  id="workhours" required>
+						</div>
+
+						<div class="forms">
+							<label class="label"><b>Salary</b></label>
+							<input class="input-form" type="text" placeholder="Enter salary" id="salary" required>
+						</div>
+
+						<div class="forms">
+							<label class="label"><b>Position</b></label>
+							<input class="input-form" type="text" placeholder="Enter position" id="position" required>
+						</div>
+
+						<div class="forms">
+							<label class="label"><b>Contract</b></label>
+						</div>
+						<button class="popup-buttons" style="float: left; margin-left: 50px" type="submit" id ="submit_job">Add job post</button>
+						<button type="button" style="float: right; margin-right: 50px" onclick="document.getElementById('id03').style.display='none'" class="popup-buttons cancelbtn">Cancel</button>
+					</div>
+				</div>
+
+				<div class="footer-container" style="background-color:#f1f1f1">
+				</div>
+			</form>
+		</div>
+
+    <!-- edit job -->
+		<div id="id04" class="modal">
+
+			<form class="modal-content animate">
+
+				<div class="popup-wrapper">
+					<div class="popup-container">
+            <div class="forms">
+              <label class="label"><b>Job Id</b></label>
+              <input class="input-form" type="text" placeholder="Enter id" id="ejid" required>
+            </div>
+
+						<h2 style="color: black; margin-top: 30px"> Edit job post</h2>
+
+						<div class="forms">
+							<label class="label"><b>Working hours</b></label>
+							<input class="input-form" type="text" placeholder="Enter working hours" id="eworkhours" required>
+						</div>
+
+						<div class="forms">
+							<label class="label"><b>Salary</b></label>
+							<input class="input-form" type="text" placeholder="Enter salary" id="esalary" required>
+						</div>
+
+						<div class="forms">
+							<label class="label"><b>Position</b></label>
+							<input class="input-form" type="text" placeholder="Enter position" id="eposition" required>
+						</div>
+
+						<div class="forms">
+							<label class="label"><b>Contract</b></label>
+						</div>
+
+						<button class="popup-buttons" style="float: left; margin-left: 50px" type="submit" id ="submit_jedit" >Edit job post</button>
+						<button type="button" style="float: right; margin-right: 50px" onclick="document.getElementById('id04').style.display='none'" class="popup-buttons cancelbtn">Cancel</button>
+					</div>
+				</div>
+
+				<div class="footer-container" style="background-color:#f1f1f1">
+				</div>
+			</form>
+		</div>
+
+    <!-- delete profile -->
+    <div id="id05" class="modal">
+
+      <div class="modal-content animate">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+        </div>
+
+        <div class="popup-wrapper">
+          <div class="popup-container">
+            <h3 style="color: black; margin-top: 30px; margin-left: 50px"> Deletion profile, leads to the deletion of your whole account.</h3>
+            <h3 style="color: black; margin-left: 50px"> Are you sure?</h3>
+
+            <button class="popup-buttons" id="submit_delete" style="float: left; margin-left: 50px" type="submit">Delete profile</button>
+            <button type="button" style="float: right; margin-right: 50px" onclick="document.getElementById('id05').style.display='none'" class="popup-buttons cancelbtn">Cancel</button>
+          </div>
+        </div>
+
+        <div class="footer-container" style="background-color:#f1f1f1">
+        </div>
+      </div>
+    </div>
+
+    <!-- delete job -->
+    <div id="id06" class="modal">
+
+      <form class="modal-content animate">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id06').style.display='none'" class="close" title="Close Modal">&times;</span>
+        </div>
+
+        <div class="popup-wrapper">
+          <div class="popup-container">
+            <h3 style="color: black; margin-top: 30px; margin-left: 50px"> Delete job</h3>
+            <h3 style="color: black; margin-left: 50px"> Are you sure?</h3>
+
+            <button class="popup-buttons" id="submit_jdelete" style="float: left; margin-left: 50px" type="submit">Delete post</button>
+            <button type="button" style="float: right; margin-right: 50px" onclick="document.getElementById('id06').style.display='none'" class="popup-buttons cancelbtn">Cancel</button>
+          </div>
+        </div>
+
+        <div class="footer-container" style="background-color:#f1f1f1">
+        </div>
+      </form>
+    </div>
+
+
+<!-- edit profile -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+<script>
+    $(document).ready(function(){
+      var city;
+      var street;
+      var province;
+      var name;
+      var email;
+      $("#submit_edit").click(function(){
+        city=$("#city").val();
+        street=$("#street").val();
+        province=$("#province").val();
+        name=$("#name").val();
+        email=$("#email").val();
+        $.post("http://localhost:3000/companyedit",{city: city, street: street, province: province, name: name, email: email}, function(data){
+          if(data==='done')
+            {
+              alert("Operation Successful!");
+              window.location.replace("http://localhost:3000/companyeditprofile");
+            }
+          else{
+              alert("Oops, Someting Went Wrong!");
+              window.location.replace("http://localhost:3000/companyeditprofile");
+          }
+        });
+
+      });
+    });
+</script>
+
+<!-- delete profile -->
+<script>
+   $(document).ready(function(){
+     var cid;
+     $("#submit_delete").click(function(){
+       cid=$("#cid").val();
+       $.post("http://localhost:3000/companydelete",{}, function(data){
+         if(data==='done')
+           {
+             alert("Operation Successful");
+             window.location.replace("http://localhost:3000/");
+           }
+         else{
+             alert("Oops! Something went wrong.");
+             window.location.replace("http://localhost:3000/companywelcome");
+         }
+       });
+     });
+   });
+</script>
+
+<!-- view profile -->
+<script>
+  $(document).ready(function(){
+    var cid
+    $("#submit_view").click(function(){
+      cid=$("#cid").val();
+      $.post("http://localhost:3000/companyview",{cid: cid}, function(data){
+        document.getElementById("content").innerHTML = "";
+        document.getElementById("content").innerHTML += "<br><br><br><br>";
+        document.getElementById("content").innerHTML += "ID: " + data[0].C_profileid + "<br>" + "CompanyName: " + data[0].Name + "<br>" +  "Email: " + data[0].Email + "<br>" + "Address: " + data[0].Street + "," + data[0].City + "," + data[0].Province + "<br>";
+        if(data[0].Is_approved == 1){
+                document.getElementById("content").innerHTML += "Approve: Yes" + "<br><br><br>";
+              }
+        else{
+          document.getElementById("content").innerHTML += "Approve: No" + "<br><br><br>";
+        }
+
+      });
+    });
+  });
+</script>
+
+<!-- post job -->
+<script>
+  $(document).ready(function(){
+  var workhours;
+  var salary;
+  var position;
+    $("#submit_job").click(function(){
+      cpid=$("#cpid").val();
+      workhours=$("#workhours").val();
+      salary=$("#salary").val();
+      position=$("#position").val();
+      $.post("http://localhost:3000/postjob",{workhours: workhours, salary: salary, position: position}, function(data){
+        if(data==='done')
+          {
+            alert("Operation Successful!");
+            window.location.replace("http://localhost:3000/companywelcome");
+          }
+        else{
+            alert("Something Went Wrong!");
+        }
+      });
+
+    });
+  });
+</script>
+
+<!-- edit job -->
+<script>
+  $(document).ready(function(){
+    var workhours;
+    var salary;
+    var position;
+    var jid;
+    $("#submit_jedit").click(function(){
+      workhours=$("#eworkhours").val();
+      salary=$("#esalary").val();
+      position=$("#eposition").val();
+      jid=$("#ejid").val();
+      $.post("http://localhost:3000/companycheckid",{jid:jid}, function(data){
+        if(data==='done')
+          {
+            $.post("http://localhost:3000/editjob",{jid: jid, salary: salary, position: position, workhours: workhours}, function(data){
+                if(data==='done')
+                  {
+                    alert("Operation Successful!");
+                    window.location.replace("http://localhost:3000/companywelcome");
+                  }
+                else{
+                    alert("Oops, Someting Went Wrong!");
+                    window.location.replace("http://localhost:3000/companywelcome");
+                }
+              });
+          }
+        else{
+            alert("Invalid ID!");
+            window.location.replace("http://localhost:3000/companywelcome");
+        }
+      });
+    });
+  });
+</script>
+
+
+<!-- find job -->
+<script>
+  $(document).ready(function(){
+    var jid
+    $("#submit_id").click(function(){
+      jid=$("#jid").val();
+      $.post("http://localhost:3000/viewjob",{jid: jid}, function(data){
+        document.getElementById("content_job").innerHTML = "";
+        document.getElementById("content_job").innerHTML += "<br><br><br><br>";
+        document.getElementById("content_job").innerHTML += "ID: " + data[0].Job_id + "<br>" + "Working Hours: " + data[0].Working_hours + "<br>" + "Position: " + data[0].Position + "<br>" + "Salary: " + data[0].Salary  + "<br><br><br>";
+
+      });
+    });
+  });
+</script>
+
+<!-- delete job -->
+<script>
+ $(document).ready(function(){
+   var jid
+   $("#submit_jdelete").click(function(){
+     jid=$("#djid").val();
+     $.post("http://localhost:3000/companycheckid",{jid:jid}, function(data){
+       if(data==='done')
+         {
+           $.post("http://localhost:3000/deletejob",{jid: jid}, function(data){
+               if(data==='done')
+                 {
+                   alert("Operation Successful!");
+                   window.location.replace("http://localhost:3000/companywelcome");
+                 }
+               else{
+                   alert("Oops, Someting Went Wrong!");
+                   window.location.replace("http://localhost:3000/companywelcome");
+               }
+             });
+         }
+       else{
+           alert("Invalid ID!");
+           window.location.replace("http://localhost:3000/companywelcome");
+       }
+     });
+
+   });
+ });
+</script>
+
+<script>
+function change1(){
+    window.location.replace("http://localhost:3000/companywelcome");
+  }
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+  var modal = document.getElementById('id02');
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+</script>
+
+
+</body>
+</html>

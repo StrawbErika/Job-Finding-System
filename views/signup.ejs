@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/insideLogin.css">
+    <title> Login </title>
+  </head>
+
+  <body>
+
+  <body style="margin: 0">
+
+  <form action="../db/db.js" method="post">
+
+  <div class="parent-div">
+    <div class="imgcontainer">
+      <img src="../images/Firewatch.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="login-part">
+      <h2> Sign Up</h2>
+
+      <label><b>Name</b></label>
+        <br>
+        <input type="text" placeholder="Name" name="name" id="name" required>
+        <br>
+
+        <label><b>Email</b></label>
+        <br>
+        <input type="text" placeholder="Email" name="email" id="email" required>
+        <br>
+
+        <label><b>Username</b></label>
+        <br>
+        <input type="text" placeholder="Username" name="username" id="username" required>
+        <br>
+
+        <label><b>Password</b></label>
+        <br>
+        <input type="password" placeholder="Password" name="password" id="password" required>
+        <br>
+
+        <label><b>City</b></label>
+        <br>
+        <input type="text" placeholder="City" name="city" id="city" required>
+        <br>
+
+        <label><b>Street</b></label>
+        <br>
+        <input type="text" placeholder="Street" name="street" id="street" required>
+        <br>
+
+        <label><b>Province</b></label>
+        <br>
+        <input type="text" placeholder="Province" name="province" id="province" required>
+        <br>
+
+        <input type="button" id="submit" class="login" value="Submit" >
+      </div>
+    </div>
+  </form>
+
+    <script>
+  function change1(){window.location.replace("http://localhost:3000/adminloginpage"); }
+  function change2(){window.location.replace("http://localhost:3000/companyloginpage"); }
+  function change3(){window.location.replace("http://localhost:3000/jobseekerloginpage"); }
+
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+  <script>
+  $(document).ready(function(){
+    var name;
+    var email;
+    var username;
+    var password;
+    var newpassword;
+    var city;
+    var street;
+    var province;
+    $("#submit").click(function(){
+      name=$("#name").val();
+      email=$("#email").val();
+      username=$("#username").val();
+      password=$("#password").val();
+      city=$("#city").val();
+      street=$("#street").val();
+      province=$("#province").val();
+      newpassword = CryptoJS.AES.encrypt(password, username);
+      $.post("http://localhost:3000/signup1",{name: name, email: email, username: username, password: newpassword.toString(), city: city, street: street, province: province}, function(data){
+        if(data==='done')
+        {
+          alert("Operation Successful!");
+          window.location.replace("http://localhost:3000/");
+        }
+        else{
+          alert("Oops, Someting Went Wrong!");
+          window.location.replace("http://localhost:3000/");
+        }
+      });
+    });
+  });
+  </script>
+
+    </div>
+  </form>
+<!--     <div class="container" style="background-color:#f1f1f1">
+      <button type="button" class="cancelbtn">Cancel</button>
+      <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
+  </body>
+<html>
+<!--  -->

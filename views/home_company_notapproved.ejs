@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" type="text/css" href="../css/companyUserCSS.css">
+  <link rel="stylesheet" type="text/css" href="../css/popUpForms.css">
+  <title> Home </title>
+<body>
+	<div id="fixednavi">
+	  <ul id="navi">
+	    <li> <a onClick="change1()" id="active" class="non-dropdown-content"> Home </a> </li>
+      <li class="logout"> <a onClick="change3()"  class="non-dropdown-content non-active"> Logout </a> </li>
+
+	  </ul>
+	</div>
+
+  <div class="nav-body-container">
+      <h3 style="margin-top: 90px" class="text"> Company Home </h3>
+      <h4 class="text"> Your Profile is Pending for Approval! </h4>
+  </div>
+
+<script>
+function change1(){
+    window.location.replace("http://localhost:3000/companywelcomenotapproved");
+  }
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+
+</script>
+
+</body>
+</html>
+ho

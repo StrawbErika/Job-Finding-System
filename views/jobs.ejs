@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" type="text/css" href="../css/jobSeekerCSS.css">
+  <link rel="stylesheet" type="text/css" href="../css/popUpForms.css">
+  <title> Home </title>
+<body>
+	<div id="fixednavi">
+	  <ul id="navi">
+	    <li> <a onClick="change1()" class="non-dropdown-content"> Home </a> </li>
+      <li> <a href="/jobs" id="active" class="non-dropdown-content non-active"> Jobs </a> </li>
+      <li> <a href="/companies" class="non-dropdown-content non-active"> Companies </a> </li>
+      <li> <input class="searchbar" placeholder="Search" type="text"/> </li>
+      <button class="search-button" >Go</button>
+      <li class="logout"> <a onClick="change3()"  class="non-dropdown-content non-active"> Logout </a> </li>
+	  </ul>
+  </div>
+
+  <div class="nav-body-container">
+
+    <div class="popup-wrapper">
+      <div class="popup-container">
+        <h4 style="color: black; margin-top: 90px"> Job postings</h4>
+
+        <div class="forms">
+          <div>
+            <button style="width:400px " id="submit_all_jobs" class="search-button">List of jobs</button>
+          </div>
+          <div style = "margin-top: -100px; color: black; text-align: left" > <p id="content">  </p> </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+ <script>
+  $(document).ready(function(){
+    $("#submit_all_jobs").click(function(){
+      $.post("http://localhost:3000/jobseekergetalljobs",{}, function(data){
+        document.getElementById("content").innerHTML = "";
+          document.getElementById("content").innerHTML += "<br><br><br><br>";
+          var counter = 0;
+
+          while(counter < data.length){
+            document.getElementById("content").innerHTML += "ID: " + data[counter].Job_id + "<br>" + "Working Hours: " + data[counter].Working_hours + "<br>" + "Position: " + data[counter].Position + "<br>" + "Salary: " + data[counter].Salary  + "<br><br><br>";
+            counter++;
+          }
+
+      });
+    });
+  });
+</script>
+
+<script>
+function change1(){
+  window.location.replace("http://localhost:3000/jobseekerwelcome");
+}
+
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+
+  var modal = document.getElementById('id03');
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+</script>
+
+</body>
+</html>

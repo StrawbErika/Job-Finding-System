@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" type="text/css" href="../css/companyUserCSS.css">
+  <link rel="stylesheet" type="text/css" href="../css/popUpForms.css">
+  <title> Home </title>
+<body>
+	<div id="fixednavi">
+	  <ul id="navi">
+	    <li> <a onClick="change1()" id="active" class="non-dropdown-content"> Home </a> </li>
+	    <li> <a onClick="change2()"  class="non-dropdown-content non-active"> Reports generator </a> </li>
+      <li> <input class="searchbar" placeholder="Search" type="text"/> </li>
+      <button class="search-button" >Go</button>
+      <li class="logout"> <a onClick="change3()"  class="non-dropdown-content non-active"> Logout </a> </li>
+
+	  </ul>
+	</div>
+
+<div class="nav-body-container">
+    <h3 class="text"> Administrator Home </h3>
+      <div style="display: flex;">
+        <div style="width: 600px">
+          <div class="border-box">
+            <h4 style="color: black; margin-top: 30px"> Delete a company </h4>
+
+            <div class="forms">
+              <input class="search-input" id="cid" type="text" placeholder="Search company to delete">
+              <button style="width: 100px" id="delete" class="search-button">Delete</button>
+              <button style="width: 70%; margin-bottom: 40px" id="list_company" class="search-button">List of companies</button>
+              <p style="margin-top: -70px; color:black" id="companylist"> </p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-left: 70px; width: 600px; float: left">
+          <div class="border-box">
+            <h4 style="color: black; margin-top: 30px"> Approve a company </h4>
+
+            <div class="forms">
+              <input class="search-input" id="acid" type="text" placeholder="Search company to approve">
+              <button style="width: 100px" id="approve" class="search-button">Approve</button>
+              <button style="width: 70%; margin-bottom: 40px" id="list_unapproved" class="search-button">List of unapproved companies</button>
+              <p style="margin-top: -70px; color:black" id="content"> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+<script>
+$(document).ready(function(){
+  var cid;
+  $("#delete").click(function(){
+    cid=$("#cid").val();
+    $.post("http://localhost:3000/admindelete",{id: cid}, function(data){
+      if(data==='done')
+        {
+          alert("Operation Successful!");
+          window.location.replace("http://localhost:3000/adminwelcome");
+        }
+      else{
+          alert("Oops, Someting Went Wrong!");
+          window.location.replace("http://localhost:3000/adminwelcome");
+      }
+    });
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+
+  $("#list_company").click(function(){
+
+    $.post("http://localhost:3000/getcompany",{}, function(data){
+        document.getElementById("companylist").innerHTML = "";
+        document.getElementById("companylist").innerHTML += "<br><br><br><br>";
+
+        var counter = 0;
+
+        if (data.length == 0){
+          document.getElementById("companylist").innerHTML += "None found!";
+        }else{
+          while(counter < data.length){
+            document.getElementById("companylist").innerHTML += "ID: " + data[counter].C_profileid + "<br>" + "CompanyName: " + data[counter].Name + "<br>" +  "Email: " + data[counter].Email + "<br>" + "Address: " + data[counter].Street + "," + data[counter].City + "," + data[counter].Province + "<br>";
+              if(data[counter].Is_approved == 1){
+                document.getElementById("companylist").innerHTML += "Approve: Yes" + "<br><br><br>";
+              }
+              else{
+                document.getElementById("companylist").innerHTML += "Approve: No" + "<br><br><br>";
+              }
+            counter++;
+          }
+        }
+    });
+  });
+});
+</script>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+<script>
+$(document).ready(function(){
+  var cid;
+  $("#approve").click(function(){
+    cid=$("#acid").val();
+    $.post("http://localhost:3000/adminapprove",{id: cid}, function(data){
+      if(data==='done')
+        {
+          alert("Operation Successful!");
+          window.location.replace("http://localhost:3000/adminwelcome");
+        }
+      else{
+          alert("Oops, Someting Went Wrong!");
+          window.location.replace("http://localhost:3000/adminwelcome");
+      }
+    });
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+
+  $("#list_unapproved").click(function(){
+
+    $.post("http://localhost:3000/getnotapprovedcompany",{}, function(data){
+        document.getElementById("content").innerHTML = "";
+        document.getElementById("content").innerHTML += "<br><br><br><br>";
+
+        var counter = 0;
+        if (data.length == 0){
+          document.getElementById("content").innerHTML += "None found!";
+        }else{
+          while(counter < data.length){
+            document.getElementById("content").innerHTML += "ID: " + data[counter].C_profileid + "<br>" + "CompanyName: " + data[counter].Name + "<br>" +  "Email: " + data[counter].Email + "<br>" + "Address: " + data[counter].Street + "," + data[counter].City + "," + data[counter].Province + "<br>";
+              if(data[counter].Is_approved == 1){
+                document.getElementById("content").innerHTML += "Approve: Yes" + "<br><br><br>";
+              }
+              else{
+                document.getElementById("content").innerHTML += "Approve: No" + "<br><br><br>";
+              }
+            counter++;
+          }
+        }
+    });
+  });
+});
+</script>
+
+
+<script>
+function change1(){
+    window.location.replace("http://localhost:3000/adminwelcome");
+  }
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+
+  var modal = document.getElementById('id01');
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+
+</script>
+
+<script>
+
+  function change2(){
+    window.location.replace("http://localhost:3000/adminreportgenerator");
+  }
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+
+.parent-div{
+  width:100%;
+  height:100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Full-width inputs */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.bday{
+  width: 180px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4db8ff;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+input.login{
+    background-color: #4db8ff;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+input.login:hover {
+    opacity: 0.8;
+}
+
+.login-part{
+  width: 500px;
+  border: 2px solid #ccc;
+  padding: 40px;
+}
+
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 0.8;
+}
+
+.imgcontainer {
+    /*padding-top: 17%;*/
+    margin-right: 100px;
+    /*float: left;*/
+    width: 600px;
+    text-align: center;
+}
+
+/* Avatar image */
+img.avatar {
+    width: 100%;
+    border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+    float: right;
+    padding-top: 20%;
+    padding-right: 250px;
+    width: 600px;
+}
+.container2 {
+    float: right;
+    padding-top: 20%;
+    padding-right: 250px;
+    width: 600px;
+    background-color: blue;
+}
+
+
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}

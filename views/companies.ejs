@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" type="text/css" href="../css/jobSeekerCSS.css">
+  <link rel="stylesheet" type="text/css" href="../css/popUpForms.css">
+  <title> Home </title>
+<body>
+	<div id="fixednavi">
+	  <ul id="navi">
+	    <li> <a onClick="change1()" class="non-dropdown-content"> Home </a> </li>
+      <li> <a href="/jobs" class="non-dropdown-content non-active"> Jobs </a> </li>
+      <li> <a href="/companies" id="active" class="non-dropdown-content non-active"> Companies </a> </li>
+      <li> <input class="searchbar" placeholder="Search" type="text"/> </li>
+      <button class="search-button" >Go</button>
+      <li class="logout"> <a onClick="change3()"  class="non-dropdown-content non-active"> Logout </a> </li>
+	  </ul>
+  </div>
+
+  <div class="nav-body-container">
+    <div class="popup-wrapper">
+      <div class="popup-container">
+        <h4 style="color: black; margin-top: 90px"> Companies </h4>
+
+        <div class="forms">
+          <input class="search-input" id="cid" type="text" placeholder="Search company">
+          <button class="search-button" id ="submit_id" onclick="document.getElementById('id02').style.display='block'">Go</button>
+          <div>
+            <button style="width:400px " id="submit_company" class="search-button">List of companies</button>
+          </div>
+          <p style="margin-top: -100px;color: black" id="content_delete">
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="id02" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php">
+      <div class="imgcontainer">
+      </div>
+
+      <div class="popup-wrapper">
+        <div class="popup-container">
+          <h3 style="color: black"> Company found: </h3>
+          <p style="margin-top: -100px; color: black" id="content_company">
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-container" style="background-color:#f1f1f1">
+      </div>
+    </form>
+  </div>
+
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+ <script>
+  $(document).ready(function(){
+    var cid
+    $("#submit_id").click(function(){
+      cid=$("#cid").val();
+      $.post("http://localhost:3000/jobseekercompanyview",{cid: cid}, function(data){
+        document.getElementById("content_company").innerHTML = "";
+        document.getElementById("content_company").innerHTML += "<br><br><br><br>";
+        document.getElementById("content_company").innerHTML += "ID: " + data[0].C_profileid + "<br>" + "CompanyName: " + data[0].Name + "<br>" +  "Email: " + data[0].Email + "<br>" + "Address: " + data[0].Street + "," + data[0].City + "," + data[0].Province + "<br>";
+        if(data[0].Is_approved == 1){
+                document.getElementById("content_company").innerHTML += "Approve: Yes" + "<br><br><br>";
+              }
+        else{
+          document.getElementById("content_company").innerHTML += "Approve: No" + "<br><br><br>";
+        }
+
+      });
+    });
+  });
+</script>
+
+<script>
+$(document).ready(function(){
+
+  $("#submit_company").click(function(){
+
+    $.post("http://localhost:3000/getcompany",{}, function(data){
+        document.getElementById("content_delete").innerHTML = "";
+        document.getElementById("content_delete").innerHTML += "<br><br><br><br>";
+
+        var counter = 0;
+
+        if (data.length == 0){
+          document.getElementById("content_delete").innerHTML += "None found!";
+        }else{
+          while(counter < data.length){
+            document.getElementById("content_delete").innerHTML += "ID: " + data[counter].C_profileid + "<br>" + "CompanyName: " + data[counter].Name + "<br>" +  "Email: " + data[counter].Email + "<br>" + "Address: " + data[counter].Street + "," + data[counter].City + "," + data[counter].Province + "<br>";
+              if(data[counter].Is_approved == 1){
+                document.getElementById("content_delete").innerHTML += "Approve: Yes" + "<br><br><br>";
+              }
+              else{
+                document.getElementById("content_delete").innerHTML += "Approve: No" + "<br><br><br>";
+              }
+            counter++;
+          }
+        }
+    });
+  });
+});
+</script>
+
+<script>
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+  var modal = document.getElementById('id02');
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+</script>
+
+<script>
+function change1(){
+  window.location.replace("http://localhost:3000/jobseekerwelcome");
+}
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+</script>
+
+</body>
+</html>

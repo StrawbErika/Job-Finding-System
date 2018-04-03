@@ -1,0 +1,135 @@
+!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" type="text/css" href="../css/companyUserCSS.css">
+  <link rel="stylesheet" type="text/css" href="../css/popUpForms.css">
+  <title> Home </title>
+<body>
+	<div id="fixednavi">
+	  <ul id="navi">
+	    <li> <a onClick="change1()" class="non-dropdown-content"> Home </a> </li>
+	    <li> <a href="/adminreportgenerator"  id="active" class="non-dropdown-content non-active"> Reports generator </a> </li>
+      <li> <input class="searchbar" placeholder="Search" type="text"/> </li>
+      <button class="search-button" >Go</button>
+      <li class="logout"> <a onClick="change3()"  class="non-dropdown-content non-active"> Logout </a> </li>
+
+	  </ul>
+	</div>
+
+  <div class="nav-body-container">
+    <ul>
+      <li>
+        <input class="button" style="margin-top: 95px" id="submit1" class="login" value="List of all Companies" >
+      </li>
+      <li>
+        <input class="button" id="submit2" class="login" value="List of all Job Seekers" >
+      </li>
+      <li> <input class="button" id="submit3" class="login" value="List of all Job Seekers Applying for a Job" > </li>
+    </ul>
+  </div>
+
+
+    <div class="container2">
+      <p id="content">
+      </p>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+     <script>
+      $(document).ready(function(){
+
+
+        $("#submit1").click(function(){
+
+          $.post("http://localhost:3000/getcompany",{}, function(data){
+              document.getElementById("content").innerHTML = "";
+              document.getElementById("content").innerHTML += "<br><br><br><br>";
+              var counter = 0;
+              var content = "";
+
+              while(counter < data.length){
+                content +="ID: " + data[counter].C_profileid + "\n" + "CompanyName: " + data[counter].Name + "\n" +  "Email: " + data[counter].Email + "\n" + "Address: " + data[counter].Street + "," + data[counter].City + "," + data[counter].Province + "\n";
+
+                  if(data[counter].Is_approved == 1){
+                    content +=  "Approve: Yes" + "\n\n\n";
+                  }
+                  else{
+                    content +=  "Approve: No" + "\n\n\n";
+                  }
+                counter++;
+              }
+
+              $.post("http://localhost:3000/generatereport",{filename: 'companies.pdf', content: content}, function(data){
+                  alert("Download Complete");
+               });
+
+          });
+        });
+      });
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+     <script>
+      $(document).ready(function(){
+
+        $("#submit2").click(function(){
+
+          $.post("http://localhost:3000/getalljobseeker",{}, function(data){
+              document.getElementById("content").innerHTML = "";
+              document.getElementById("content").innerHTML += "<br><br><br><br>";
+              var counter = 0;
+              var content = "";
+
+              while(counter < data.length){
+                content += "ID: " + data[counter].Js_profileid + "\n" + "JobSeekerName: " + data[counter].Name + "\n" +  "Email: " + data[counter].Email + "\n" + "Birthday: " + data[counter].Birthday + "\n" + "Sex: " + data[counter].Sex + "\n" + "Address: " + data[counter].Street + "," + data[counter].City + "," + data[counter].Province + "\n\n\n";
+                counter++;
+              }
+              $.post("http://localhost:3000/generatereport",{filename: 'jobseekers.pdf', content: content}, function(data){
+                  alert("Download Complete");
+               });
+          });
+        });
+      });
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+     <script>
+      $(document).ready(function(){
+
+        $("#submit3").click(function(){
+
+          $.post("http://localhost:3000/getalljobseekertoapply",{}, function(data){
+              document.getElementById("content").innerHTML = "";
+              document.getElementById("content").innerHTML += "<br><br><br><br>";
+              var counter = 0;
+              var content = "";
+
+              while(counter < data.length){
+                content += "ID: " + data[counter].Js_profileid + "\n" + "JobSeekerName: " + data[counter].Name + "\n" +  "Email: " + data[counter].Email + "\n" + "Birthday: " + data[counter].Birthday + "\n" + "JobID: " + data[counter].Job_id + "\n" + "Address: " + data[counter].Street + "," + data[counter].City + "," + data[counter].Province + "\n\n\n";
+                counter++;
+              }
+              $.post("http://localhost:3000/generatereport",{filename: 'jobseekerstoapply.pdf', content: content}, function(data){
+                  alert("Download Complete");
+               });
+          });
+        });
+      });
+    </script>
+
+    <script>
+  function change1(){
+    window.location.replace("http://localhost:3000/adminwelcome");
+  }
+  function change2(){
+    window.location.replace("http://localhost:3000/adminreportgenerator");
+  }
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+</script>
+
+
+  </body>
+<html>

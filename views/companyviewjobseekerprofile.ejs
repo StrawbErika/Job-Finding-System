@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" type="text/css" href="../css/companyUserCSS.css">
+  <link rel="stylesheet" type="text/css" href="../css/popUpForms.css">
+  <title> Home </title>
+<body>
+	<div id="fixednavi">
+	  <ul id="navi">
+	    <li> <a onClick="change1()"  class="non-dropdown-content"> Home </a> </li>
+      <li> <a href="/companyviewjobseekerprofile" id="active" class="non-dropdown-content non-active"> Jobs </a> </li>
+	    <li> <a href="/companyreportgenerator"  class="non-dropdown-content non-active"> Reports generator </a> </li>
+      <li> <input class="searchbar" placeholder="Search" type="text"/> </li>
+      <button class="search-button" >Go</button>
+      <li class="logout"> <a onClick="change3()"  class="non-dropdown-content non-active"> Logout </a> </li>
+	  </ul>
+	</div>
+
+
+  <div class="nav-body-container">
+    <div class="popup-wrapper">
+      <div class="popup-container">
+        <h4 style="color: black; margin-top: 90px"> Job seeker </h4>
+
+        <div class="forms">
+          <input class="search-input" id="cid" type="text" placeholder="Search job seeker">
+          <button class="search-button" id ="submit" onclick="document.getElementById('id02').style.display='block'">Go</button>
+          <p style="margin-top: -100px;color: black" id="content">
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+  <script>
+  $(document).ready(function(){
+    var cid
+    $("#submit").click(function(){
+      cid=$("#cid").val();
+      $.post("http://localhost:3000/companyviewjobseeker",{cid: cid}, function(data){
+        document.getElementById("content").innerHTML = "";
+        document.getElementById("content").innerHTML += "<br><br><br><br>";
+         document.getElementById("content").innerHTML += "ID: " + data[0].Js_profileid + "<br>" + "JobSeekerName: " + data[0].Name + "<br>" + "Sex: " + data[0].Sex   + "<br>"+ "Email: " + data[0].Email + "<br>" + "Birthday: " + data[0].Birthday + "<br>" + "Address: " + data[0].Street + "," + data[0].City + "," + data[0].Province + "<br><br><br>";
+
+      });
+    });
+  });
+</script>
+
+<script>
+function change1(){
+    window.location.replace("http://localhost:3000/companywelcome");
+  }
+  function change2(){
+    window.location.replace("http://localhost:3000/companyreportgenerator");
+  }
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+
+</script>
+
+</body>
+</html>
+ho

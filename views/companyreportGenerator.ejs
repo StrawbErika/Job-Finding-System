@@ -1,0 +1,100 @@
+!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" type="text/css" href="../css/companyUserCSS.css">
+  <link rel="stylesheet" type="text/css" href="../css/popUpForms.css">
+  <title> Home </title>
+<body>
+	<div id="fixednavi">
+	  <ul id="navi">
+	    <li> <a onClick="change1()" class="non-dropdown-content"> Home </a> </li>
+      <li> <a href="/companyviewjobseekerprofile"  class="non-dropdown-content non-active"> Jobs </a> </li>
+	    <li> <a href="/companyreportgenerator"  id="active" class="non-dropdown-content non-active"> Reports generator </a> </li>
+      <li> <input class="searchbar" placeholder="Search" type="text"/> </li>
+      <button class="search-button" >Go</button>
+      <li class="logout"> <a onClick="change3()"  class="non-dropdown-content non-active"> Logout </a> </li>
+
+	  </ul>
+	</div>
+
+  <div class="nav-body-container">
+    <ul>
+      <li>
+        <input class="button" style="margin-top: 95px" id="submit4" class="login" value="List of all Job Submitted by Company" >
+      </li>
+      <li> <input class="button" id="submit5" class="login" value="List of all Job Seekers Applying for a Job Submitted by the company" > </li>
+    </ul>
+  </div>
+
+    <div class="container2">
+    <p id="content">
+
+      </p>
+
+    </div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+<script>
+  $(document).ready(function(){
+
+    $("#submit4").click(function(){
+
+      $.post("http://localhost:3000/getalljobsubmitted",{}, function(data){
+          document.getElementById("content").innerHTML = "";
+          document.getElementById("content").innerHTML += "<br><br><br><br>";
+          var counter = 0;
+          var content = "";
+
+          while(counter < data.length){
+            content += "ID: " + data[counter].Job_id + "\n" + "Working Hours: " + data[counter].Working_hours + "\n" + "Position: " + data[counter].Position + "\n" + "Salary: " + data[counter].Salary  + "\n\n\n";
+            counter++;
+          }
+          $.post("http://localhost:3000/generatereport",{filename: 'jobs.pdf', content: content}, function(data){
+              alert("Download Complete");
+           });
+      });
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function(){
+
+    $("#submit5").click(function(){
+
+      $.post("http://localhost:3000/getalljobseekertoapplytojob",{}, function(data){
+          document.getElementById("content").innerHTML = "";
+          document.getElementById("content").innerHTML += "<br><br><br><br>";
+          var counter = 0;
+          var content = "";
+
+          while(counter < data.length){
+            content += "ID: " + data[counter].Js_profileid + "\n" + "JobSeekerName: " + data[counter].Name + "\n" + "Sex: " + data[counter].Sex   + "\n"+ "Email: " + data[counter].Email + "\n" + "Birthday: " + data[counter].Birthday + "\n" + "Address: " + data[counter].Street + "," + data[counter].City + "," + data[counter].Province + "\n" + "Working Hours: " + data[counter].Working_hours + "\n" + "Position: " + data[counter].Position + "\n" + "Salary: " + data[counter].Salary  + "\n\n\n";
+            counter++;
+          }
+          $.post("http://localhost:3000/generatereport",{filename: 'jobseekersapplyingtojob.pdf', content: content}, function(data){
+              alert("Download Complete");
+           });
+      });
+    });
+  });
+</script>
+
+    <script>
+  function change1(){
+    window.location.replace("http://localhost:3000/companywelcome");
+  }
+  function change2(){
+    window.location.replace("http://localhost:3000/companyreportgenerator");
+  }
+  function change3(){
+    window.location.replace("http://localhost:3000/");
+  }
+</script>
+
+
+  </body>
+<html>

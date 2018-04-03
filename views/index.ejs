@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <title> Login </title>
+  </head>
+  
+  <body>
+
+  <form action="../db/db.js" method="post">
+    <div class="imgcontainer">
+      <img src="../images/Firewatch.png" alt="Avatar" class="avatar">
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script> <!--> sends client info to server<!-->
+     <script>
+      $(document).ready(function(){
+        var user,pass;
+        $("#submit").click(function(){
+          user=$("#user").val();
+          pass=$("#password").val();
+          $.post("http://localhost:3000/login",{user: user,password: pass}, function(data){
+            if(data==='done')
+              {
+                alert("login success");
+                window.location.replace("http://localhost:3000/welcome");
+              }
+            else{
+                alert("Pls try Again!");
+                window.location.replace("http://localhost:3000/loginpage");
+
+            }
+          });
+        });
+      });
+    </script>
+
+
+
+
+
+
+    <div class="container">
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" id="user" required>
+
+      <label><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+
+     <input type="button" id="submit" class="login" value="Log in" > 
+    </div>
+  </form>
+<!--     <div class="container" style="background-color:#f1f1f1">
+      <button type="button" class="cancelbtn">Cancel</button>
+      <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
+  </body>
+<html>
+<!--  -->

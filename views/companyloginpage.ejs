@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/insideLogin.css">
+    <title> Login </title>
+  </head>
+
+  <body style="margin: 0">
+
+  <form action="../db/db.js" method="post">
+
+  <div class="parent-div">
+
+    <div class="imgcontainer">
+      <img src="../images/Firewatch.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div>
+      <div class="login-part">
+        <div>
+          <label><b>Username</b></label>
+          <input style="width:100%" type="text" placeholder="Enter Username" name="username" id="user" required>
+        </div>
+
+        <div>
+          <label><b>Password</b></label>
+          <input style="width:100%" type="password" placeholder="Enter Password" name="password" id="password" required>
+        </div>
+
+        <div>
+         <input style="width:100%" type="button" id="submit" class="login" value="Log in" >
+       </div>
+     </div>
+    </div>
+    </div>
+  </form>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+      <script>
+
+      $(document).ready(function(){
+        var user,pass;
+        $("#submit").click(function(){
+          user=$("#user").val();
+          pass=$("#password").val();
+          $.post("http://localhost:3000/companylogin",{user: user,password: pass}, function(data){
+            var decryptedBytes = CryptoJS.AES.decrypt(data, user);
+            var truepass = decryptedBytes.toString(CryptoJS.enc.Utf8);
+            if(truepass == pass && truepass.length > 0)
+            {
+              alert("login success");
+              $.post("http://localhost:3000/companycheckapproval",{}, function(data){
+                if(data == "1"){
+                  window.location.replace("http://localhost:3000/companywelcome");
+                }
+                else{
+                  window.location.replace("http://localhost:3000/companywelcomenotapproved");
+                }
+              });
+            }
+            else{
+              alert("Pls try Again!");
+              window.location.replace("http://localhost:3000/companyloginpage");
+
+            }
+          });
+        });
+      });
+      </script>
+
+  </body>
+<html>
+<!--  -->
